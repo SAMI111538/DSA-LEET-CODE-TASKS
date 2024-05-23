@@ -88,3 +88,18 @@ public:
        
     }
 };
+
+
+//Top k frequent elements
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        unordered_map<int,int> map;
+        if(k==0){
+            return {};
+        }
+        for(int i =0;i<nums.size();i++){
+            if()
+        }
+    }
+};
