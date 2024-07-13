@@ -1,0 +1,31 @@
+class Solution {
+public:
+    vector<int> rightSideView(TreeNode* root) {
+        queue<TreeNode*> que;
+        vector<int> res;
+
+        if (root != nullptr) {
+            que.push(root);
+        }
+
+        while (!que.empty()) {
+            int size = que.size();
+            TreeNode* rightSide = nullptr;
+
+            for (int i = 0; i < size; ++i) {
+                TreeNode* node = que.front();
+                que.pop();
+
+                if (node) {
+                    rightSide = node; // The last node at the current level is the rightmost node
+                    que.push(node->left);
+                    que.push(node->right);
+                }
+            }
+            if (rightSide) {
+                res.push_back(rightSide->val); // Add the rightmost node's value
+            }
+        }
+        return res;
+    }
+};
