@@ -1,0 +1,52 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+};
+
+class Solution {
+public:
+    int goodNodes(TreeNode* root) {
+        if (root == nullptr) {
+            return 0;
+        }
+        return dfs(root, root->val);
+    }
+
+    int dfs(TreeNode* root, int maxVal) {
+        if (root == nullptr) {
+            return 0;
+        }
+
+        cout << "Visiting Node: " << root->val << ", Current maxVal: " << maxVal << endl;
+
+        int res = (root->val >= maxVal) ? 1 : 0;
+        maxVal = max(root->val, maxVal);
+
+        res += dfs(root->left, maxVal);
+        res += dfs(root->right, maxVal);
+
+        return res;
+    }
+};
+
+int main() {
+    TreeNode* root = new TreeNode(3);
+    root->left = new TreeNode(1);
+    root->right = new TreeNode(4);
+    root->left->left = new TreeNode(3);
+    root->right->left = new TreeNode(1);
+    root->right->right = new TreeNode(5);
+
+    Solution sol;
+    cout << "Number of good nodes: " << sol.goodNodes(root) << endl;
+
+    return 0;
+}
