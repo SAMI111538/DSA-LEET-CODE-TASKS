@@ -1,0 +1,30 @@
+#include <unordered_map>
+#include <algorithm>
+
+using namespace std;
+
+class Solution {
+public:
+    int characterReplacement(string s, int k) {
+        unordered_map<char, int> freqMap;
+        int i = 0, j = 0, maxCount = 0, result = 0;
+
+        while (j < s.size()) {
+            freqMap[s[j]]++;
+            maxCount = max(maxCount, freqMap[s[j]]);
+
+            // If the current window size minus the count of the most frequent character is greater than k,
+            // it means we need more than k replacements, so we move the start of the window
+            if ((j - i + 1) - maxCount > k) {
+                freqMap[s[i]]--;
+                i++;
+            }
+
+            // Update the result with the maximum window size
+            result = max(result, j - i + 1);
+            j++;
+        }
+
+        return result;
+    }
+};
