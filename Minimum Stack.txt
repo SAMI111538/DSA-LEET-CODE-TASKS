@@ -1,0 +1,26 @@
+#include<stack>
+class MinStack {
+stack<int> sta;
+stack<int> minSta;
+public:
+    MinStack() {}
+    
+    void push(int val) {
+        sta.push(val);
+        val = min(val,minSta.empty() ? val : minSta.top());
+        minSta.push(val);
+    }
+    
+    void pop() {
+        sta.pop();
+        minSta.pop();
+    }
+    
+    int top() {
+        return sta.top();
+    }
+    
+    int getMin() {
+        return minSta.top();
+    }
+};
