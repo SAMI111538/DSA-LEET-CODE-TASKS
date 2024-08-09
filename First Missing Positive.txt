@@ -1,0 +1,24 @@
+#include <vector>
+class Solution {
+public:
+    int firstMissingPositive(std::vector<int>& nums) {
+        int n = nums.size();
+
+        for (int i = 0; i < n; ++i) {
+            while (nums[i] > 0 && nums[i] <= n && nums[nums[i] - 1] != nums[i]) {
+                // Swap nums[i] to its correct position
+                std::swap(nums[i], nums[nums[i] - 1]);
+            }
+        }
+
+        for (int i = 0; i < n; ++i) {
+            if (nums[i] != i + 1) {
+                // The first position where the element is not in its correct place
+                return i + 1;
+            }
+        }
+
+        // If all elements are in their correct place, return the next positive integer
+        return n + 1;
+    }
+};
